@@ -1,0 +1,3 @@
+class OutOfMapError(Exception):
+    pass
+
