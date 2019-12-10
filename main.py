@@ -1,6 +1,5 @@
 import sys
 from PyQt5.QtWidgets import QApplication
-import game
 import menu
 
 if __name__ == "__main__":
