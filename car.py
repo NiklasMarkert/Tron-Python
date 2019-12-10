@@ -1,19 +1,22 @@
 import expections
+import constants as c
 import tail
+
 
 
 class Car:
 
     def __init__(self, x, y, dir, color, self_dest, player_name):
         """ Konstruktor der Klasse Car
-        Setzt die x- und y- Koordinate, die Startrichtung, die Farbe und die "Selbstzerstörungs"-Option
+        Setzt die x- und y- Koordinate, die Startrichtung, die Farbe, die "Selbstzerstörungs"-Option,
+        den Schweif und den Spielernamen
         """
         self.x = x
         self.y = y
-        self.dir = dir                      # 'N' = North, 'E' = East, 'S' = South, 'W' = West
-        self.color = color                  # 1 = blau, 2 = hell blau
-        self.self_destruction = self_dest     # True = Man verliert wenn man in den eigenen Schweif fährt, False = Man verliert nicht
-        self.tail = tail.TailPart(self.x, self.y, self.color + 1)
+        self.dir = dir                          # 'N' = North, 'E' = East, 'S' = South, 'W' = West
+        self.color = color[0]
+        self.self_destruction = self_dest       # True = Man verliert wenn man in den eigenen Schweif fährt, False = Man verliert nicht
+        self.tail = tail.TailPart(self.x, self.y, color[1])
         self.name = player_name
     
     def move(self, amount):
@@ -31,7 +34,7 @@ class Car:
         else:                   # self.dir == 'W'
            self.x -= amount
         self.tail.move(old_x, old_y)
-        if self.x > 89 or self.x < 0 or self.y > 59 or self.y < 0:
+        if self.x > c.BOARD_WIDTH - 1 or self.x < 0 or self.y > c.BOARD_HEIGHT - 1 or self.y < 0:
           raise expections.OutOfMapError
 
         if self.self_destruction:
@@ -56,7 +59,7 @@ class Car:
 
     def add_tail(self, amount):
         """ Fügt dem Auto einen Schweif hinzu, bzw. verlängert ihn
-        Eingabe: amount = Angabe umwieviel Einheiten der Schweif verlängert werden soll (1=10px)
+        Eingabe: amount = Angabe umwieviel Einheiten der Schweif verlängert werden soll
         """
         for i in range(amount):
             self.tail.add_part()
