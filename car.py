@@ -14,6 +14,7 @@ class Car:
         self.x = x
         self.y = y
         self.dir = dir                          # 'N' = North, 'E' = East, 'S' = South, 'W' = West
+        self.next_dir = dir
         self.color = color[0]
         self.self_destruction = self_dest       # True = Man verliert wenn man in den eigenen Schweif fährt, False = Man verliert nicht
         self.tail = tail.TailPart(self.x, self.y, color[1])
@@ -43,10 +44,11 @@ class Car:
                 if self.x == i.x and self.y == i.y:
                     raise expections.SelfDestruction
 
-    def change_direction(self, new_dir):
+    def change_direction(self):
         """ Verändert die Richtung des Autos, nachdem es die Richtungsveränderung geprüft hat
         Eingabe: newDir = Neue Richtung in die das Auto sich bewegen soll  
         """
+        new_dir = self.next_dir
         if new_dir != self.dir:
             if new_dir == 'N' and self.dir != 'S':
                 self.dir = 'N'
