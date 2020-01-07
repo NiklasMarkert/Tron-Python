@@ -6,6 +6,7 @@ FIELD_SIZE = 10     #Groesse der Felder auf dem Board (Pixel)
 #Farben
 BLUE = [0x00A7B5, 0x00DEF0]
 PINK = [0xD500C1, 0xFE54EE]
+RED = [0xE30B00, 0xFE352B]
 GREEN = 0x53F302
 
 #Fenster
