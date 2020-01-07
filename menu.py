@@ -16,7 +16,9 @@ class Menu(QMainWindow):
     def start_game2(self):
         """ Startet den Computergegner Modus
         """
-        print('V.S. KI')
+        self.hide()
+        g = game.Game1(self, 'ai_mode')
+        g.show()
 
     def start_game3(self):
         """ Startet den Snake Modus
@@ -26,7 +28,7 @@ class Menu(QMainWindow):
         g.show()
 
     def start_game4(self):
-        print('tbA')
+        print('tba')
 
     def add_button(self, pos, text, fkt):
         """ Fügt einen Butten hinzu um einen Spielmodus zu starten
@@ -58,7 +60,7 @@ class Menu(QMainWindow):
         self.setWindowTitle('Tron')
         self.resize(c.WINDOW_WIDTH, c.WINDOW_HEIGHT)
         self.add_button(280, 'Local Multiplayer', self.start_game1)
-        self.add_button(340, 'V.S. KI', self.start_game2)
+        self.add_button(340, 'V.S. AI', self.start_game2)
         self.add_button(400, 'Snake Mode', self.start_game3)
-        self.add_button(460, 'tbA', self.start_game4)
+        self.add_button(460, 'tba', self.start_game4)
         self.add_text()
