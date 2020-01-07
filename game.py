@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow, QLabel
 from PyQt5.QtCore import Qt
 import constants as c
-import modes
+from modes import snakemode, multiplayermode, aimode
 
 
 class Game1(QMainWindow):
@@ -12,13 +12,13 @@ class Game1(QMainWindow):
 
     def arrow_keys(self, e):
         if e.key() == Qt.Key_Up:            # Pfeiltaste nach oben -> Auto2 bewegt sich nach oben
-            self.board.next_dir2 = 'N'
+            self.board.c2.next_dir = 'N'
         elif e.key() == Qt.Key_Left:        # Pfeiltaste nach links -> Auto2 bewegt sich nach links
-            self.board.next_dir2 = 'W'
+            self.board.c2.next_dir = 'W'
         elif e.key() == Qt.Key_Down:        # Pfeiltaste nach unten -> Auto2 bewegt sich nach unten
-            self.board.next_dir2 = 'S'
+            self.board.c2.next_dir = 'S'
         elif e.key() == Qt.Key_Right:       # Pfeiltaste nach rechts -> Auto2 bewegt sich nach rechts
-            self.board.next_dir2 = 'E'
+            self.board.c2.next_dir = 'E'
 
     def keyPressEvent(self, e):
         if self.board.is_paused:                # Wenn das Spiel Pausiert ist, kann jede Taste das Spiel vortsetzen
@@ -27,13 +27,13 @@ class Game1(QMainWindow):
             else:
                 self.board.end_pause()
         elif e.key() == Qt.Key_W:               # W -> Auto1 bewegt sich nach oben
-            self.board.next_dir1 = 'N'
+            self.board.c1.next_dir = 'N'
         elif e.key() == Qt.Key_A:               # A -> Auto1 bewegt sich nach links
-            self.board.next_dir1 = 'W'
+            self.board.c1.next_dir = 'W'
         elif e.key() == Qt.Key_S:               # S -> Auto1 bewegt sich nach unten
-            self.board.next_dir1 = 'S'
+            self.board.c1.next_dir = 'S'
         elif e.key() == Qt.Key_D:               # D -> Auto1 bewegt sich nach rechts
-            self.board.next_dir1 = 'E'
+            self.board.c1.next_dir = 'E'
         elif self.multiplayer:
             self.arrow_keys(e)
         if self.board.is_running is False:      # Falls Spiel beendet:
@@ -70,10 +70,12 @@ class Game1(QMainWindow):
         super(Game1, self).__init__(parent)
         self.multiplayer = False
         if mode == 'lok_multi':
-            self.board = modes.LokMulti()
+            self.board = multiplayermode.LokMulti()
             self.multiplayer = True
         elif mode == 'snake_mode':
-            self.board = modes.SnakeMode()
+            self.board = snakemode.SnakeMode()
+        elif mode == 'ai_mode':
+            self.board = aimode.AIMode()
         self.setCentralWidget(self.board)
         self.add_output1()
         self.add_output2()
