@@ -3,6 +3,9 @@ from PyQt5.QtCore import QBasicTimer
 from PyQt5.QtGui import QColor
 import constants as c
 import expections
+import car
+import ai
+
 
 class Board(QFrame):
     speed = 40
@@ -47,7 +50,30 @@ class Board(QFrame):
         color = QColor(color)
         painter.fillRect(x * c.FIELD_SIZE, y * c.FIELD_SIZE, c.FIELD_SIZE, c.FIELD_SIZE, color)
 
-    def draw_tail(self, car, painter):
+    def draw_tail(self,painter, car):
         tail_arr = car.get_tail()
         for i in tail_arr:
             self.draw_square(painter, i.x, i.y, i.color)
+
+    def draw_cars(self, painter, car_list):
+        for i in car_list:
+            self.draw_tail(painter, i)
+        for i in car_list:
+            self.draw_square(painter, i.x, i.y, i.color)
+
+    def new_car(self, x, y, dir, color, self_dest, name, tail_length):
+        new_c = car.Car(x, y, dir, color, self_dest, name)
+        new_c.add_tail(tail_length)
+        self.car_list = self.car_list + [new_c]
+        return new_c
+
+    def new_ai(self, x, y, dir, color, self_dest, name, tail_length):
+        new_ai = ai.AI(x, y, dir, color, self_dest, name)
+        new_ai.add_tail(tail_length)
+        self.car_list = self.car_list + [new_ai]
+        return new_ai
+
+    def cars_move(self, car_list):
+        for i in car_list:
+            i.change_direction()
+            self.move(i)
