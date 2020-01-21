@@ -5,6 +5,7 @@ import car
 class AI(car.Car):
     def __init__(self, x, y, dir, color, self_dest, player_name):
         super().__init__(x, y, dir, color, self_dest, player_name)
+        self.ai = True
 
     def turn_right(self):
         self.dir = (self.dir + 1) % 4
@@ -25,13 +26,20 @@ class AI(car.Car):
             else:
                 break
 
-    def change_direction(self):
-        
-        if random() < 0.1:
-            if random() > 0.5:
-                self.turn_right()
+    def change_direction(self, map):
+        r = random()
+        if map[self.dir] < 0 or r < 0.05:
+            r = random()
+            if r < 0.5:
+                if map[(self.dir + 1) % 4] > 0:
+                    self.turn_right()
+                elif map[(self.dir + 3) % 4] > 0:
+                    self.turn_left()
             else:
-                self.turn_left()
-        self.border_detection()
+                if map[(self.dir + 3) % 4] > 0:
+                    self.turn_left()
+                elif map[(self.dir + 1) % 4] > 0:
+                    self.turn_right()
+
 
 
