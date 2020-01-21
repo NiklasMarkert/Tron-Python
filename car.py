@@ -18,6 +18,7 @@ class Car:
         self.self_destruction = self_dest       # True = Man verliert wenn man in den eigenen Schweif fährt, False = Man verliert nicht
         self.tail = tail.TailPart(self.x, self.y, color[1])
         self.name = player_name
+        self.ai = False
     
     def move(self, amount):
         """ Lässt das Auto in die momentane Richtung dir bewegen
