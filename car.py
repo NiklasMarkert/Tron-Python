@@ -3,7 +3,6 @@ import constants as c
 import tail
 
 
-
 class Car:
 
     def __init__(self, x, y, dir, color, self_dest, player_name):
@@ -26,13 +25,13 @@ class Car:
         """
         old_x = self.x
         old_y = self.y
-        if self.dir == 'N':
+        if self.dir == c.NORTH:
             self.y -= amount
-        elif self.dir == 'E':
+        elif self.dir == c.EAST:
             self.x += amount
-        elif self.dir == 'S':
+        elif self.dir == c.SOUTH:
             self.y += amount
-        else:                   # self.dir == 'W'
+        else:                   # self.dir == WEST  
            self.x -= amount
         self.tail.move(old_x, old_y)
         if self.x > c.BOARD_WIDTH - 1 or self.x < 0 or self.y > c.BOARD_HEIGHT - 1 or self.y < 0:
@@ -50,14 +49,14 @@ class Car:
         """
         new_dir = self.next_dir
         if new_dir != self.dir:
-            if new_dir == 'N' and self.dir != 'S':
-                self.dir = 'N'
-            elif new_dir == 'E' and self.dir != 'W':
-                self.dir = 'E'
-            elif new_dir == 'S' and self.dir != 'N':
-                self.dir = 'S'
-            elif new_dir == 'W' and self.dir != 'E':
-                self.dir = 'W'
+            if new_dir == c.NORTH and self.dir != c.SOUTH:
+                self.dir = c.NORTH
+            elif new_dir == c.EAST and self.dir != c.WEST:
+                self.dir = c.EAST
+            elif new_dir == c.SOUTH and self.dir != c.NORTH:
+                self.dir = c.SOUTH
+            elif new_dir == c.WEST and self.dir != c.EAST:
+                self.dir = c.WEST
 
     def add_tail(self, amount):
         """ Fügt dem Auto einen Schweif hinzu, bzw. verlängert ihn
