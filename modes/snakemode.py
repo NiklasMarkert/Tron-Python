@@ -11,7 +11,7 @@ class SnakeMode(board.Board):
 
     def start(self):
         self.car_list = []
-        self.c1 = self.new_car(45, 30, 'N', c.BLUE, True, 'Player1', 20)
+        self.c1 = self.new_car(c.BOARD_WIDTH / 2, c.BOARD_HEIGHT / 2, c.NORTH, c.BLUE, True, 'Player1', 20)
         self.obj_arr = [None]
         self.score = 0
 
