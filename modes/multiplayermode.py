@@ -10,8 +10,9 @@ class LokMulti(board.Board):
 
     def start(self):
         self.car_list = []
-        self.c1 = self.new_car(30, 30, 'N', c.BLUE, True, 'Player1', 50)
-        self.c2 = self.new_car(60, 30, 'S', c.PINK, True, 'Player2', 50)
+        self.c1 = self.new_car(30, 30, c.NORTH, c.BLUE, True, 'Player1', 50)
+        self.c2 = self.new_car(60, 30, c.SOUTH, c.PINK, True, 'Player2', 50)
+        self.counter = 0
 
     def paintEvent(self, e):
         painter = QPainter(self)
@@ -35,7 +36,14 @@ class LokMulti(board.Board):
             self.print_out(self.big_out, car.name + ' lost!')
             self.end()
 
+    def extra_length(self):
+        self.counter = self.counter + 1
+        if self.counter % 100 == 0:
+             for i in self.car_list:
+                 i.add_tail(10)
+
     def timerEvent(self, e):
+        self.extra_length()
         self.cars_move(self.car_list)
         if self.c1.x == self.c2.x and self.c1.y == self.c2.y:   # Die Autos fahren gegeneinander
             self.print_out(self.big_out, 'Tie!')
