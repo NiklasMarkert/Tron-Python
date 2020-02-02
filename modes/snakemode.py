@@ -1,17 +1,19 @@
 from PyQt5.QtGui import QPainter, QColor
 import constants as c
+from constants import Directions as d
 import expections
 import board
 import objects
 
 class SnakeMode(board.Board):
 
-    def __init__(self):
+    def __init__(self, hs):
         super().__init__()
+        self.highscore = hs
 
     def start(self):
         self.car_list = []
-        self.c1 = self.new_car(c.BOARD_WIDTH / 2, c.BOARD_HEIGHT / 2, c.NORTH, c.BLUE, True, 'Player1', 20)
+        self.c1 = self.new_car(c.START_X_1P, c.START_Y_1P, d.NORTH, c.BLUE, True, c.PLAYER_NAME, 20)
         self.obj_arr = [None]
         self.score = 0
 
@@ -32,6 +34,9 @@ class SnakeMode(board.Board):
             self.obj_arr[0].collect(car)
         except(expections.OutOfMapError, expections.SelfDestruction):
             self.print_out(self.big_out, 'Score: ' + str(self.score))
+            self.highscore.add_score(self.c1.name, self.score)
+            self.print_highscore(self.highscore)
+            #self.background.show()
             self.end()
         except(expections.Collected):
             car.add_tail(10)
