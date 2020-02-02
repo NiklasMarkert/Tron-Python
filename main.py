@@ -7,3 +7,4 @@ if __name__ == "__main__":
     m = menu.Menu()
     m.show()
     sys.exit(app.exec_())
+    
