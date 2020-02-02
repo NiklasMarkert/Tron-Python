@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from enum import Enum
+from enum import IntEnum
 
 #Board
 BOARD_WIDTH = 90    #Breite des Boards (Felder)
@@ -7,29 +7,57 @@ BOARD_HEIGHT = 60   #Höhe des Boards (Felder)
 FIELD_SIZE = 10     #Groesse der Felder auf dem Board (Pixel)
 
 
-#Farben
+#Farben - für Objekte auf dem Spielfeld
 BLUE = [0x00A7B5, 0x00DEF0]
 PINK = [0xD500C1, 0xFE54EE]
 RED = [0xE30B00, 0xFE352B]
 GREEN = 0x53F302
+
+#Farben - für Text
+GOLD = '#FFD700'
+SILVER = '#C0C0C0'
+BRONZE = '#CD7F32'
 
 
 #Fenstergrößen
 MENU_WINDOW_WIDTH = 900
 MENU_WINDOW_HEIGHT = 600
 
-OPTIONS_WINDOW_WIDTH = 700
+OPTIONS_WINDOW_WIDTH = 800
 OPTIONS_WINDOW_HEIGHT = 500
+
+HIGHSCORE_WINDOW_WIDTH = 900
+HIGHSCORE_WINDOW_HEIGHT = 600
 
 BOARD_WINDOW_WIDTH = BOARD_WIDTH * FIELD_SIZE
 BOARD_WINDOW_HEIGHT = BOARD_HEIGHT * FIELD_SIZE
 
 
 #Fahrtrichtungen
-NORTH = 0
-EAST = 1
-SOUTH = 2
-WEST = 3
+class Directions(IntEnum):
+    NORTH = 0
+    EAST = 1
+    SOUTH = 2
+    WEST = 3
+
+
+#Startpositionen
+START_X_1P = BOARD_WIDTH / 2
+START_Y_1P = BOARD_HEIGHT / 2
+
+START_X_2P_1 = BOARD_WIDTH / 3
+START_Y_2P_1 = BOARD_HEIGHT / 2
+START_X_2P_2 = (BOARD_WIDTH / 3) * 2
+START_Y_2P_2 = BOARD_HEIGHT / 2
+
+START_X_4P_1 = BOARD_WIDTH / 4
+START_Y_4P_1 = BOARD_HEIGHT / 4
+START_X_4P_2 = BOARD_WIDTH / 4
+START_Y_4P_2 = (BOARD_HEIGHT / 4) * 3
+START_X_4P_3 = (BOARD_WIDTH / 4) * 3
+START_Y_4P_3 = BOARD_HEIGHT / 4
+START_X_4P_4 = (BOARD_WIDTH / 4) * 3
+START_Y_4P_4 = (BOARD_HEIGHT / 4) * 3
 
 
 #Tastaturbefehle
@@ -46,3 +74,7 @@ PLAYER2_RIGHT = Qt.Key_Right
 START = Qt.Key_Space
 MENU = Qt.Key_M
 PAUSE = Qt.Key_Escape
+
+
+#Spielername
+PLAYER_NAME = 'Player1'
