@@ -1,6 +1,7 @@
 from random import random
 from modes import multiplayermode
 import constants as c
+from constants import Directions as d
 
 class AIMode(multiplayermode.LokMulti):
 
@@ -9,20 +10,22 @@ class AIMode(multiplayermode.LokMulti):
 
     def start(self):
         self.car_list = []
-        self.c1 = self.new_car(30, 30, c.NORTH, c.BLUE, True, 'Player1', 50)
-        self.c2 = self.new_ai(60, 30, c.SOUTH, c.RED, True, 'Player2', 50)
+        self.c1 = self.new_car(c.START_X_4P_1, c.START_Y_4P_1, d.SOUTH, c.BLUE, True, c.PLAYER_NAME, 50)
+        self.c2 = self.new_ai(c.START_X_4P_2, c.START_Y_4P_2, d.EAST, c.RED, True, 'AI', 50)
+        self.c3 = self.new_ai(c.START_X_4P_3, c.START_Y_4P_3, d.WEST, c.RED, True, 'AI', 50)
+        self.c4 = self.new_ai(c.START_X_4P_4, c.START_Y_4P_4, d.NORTH, c.RED, True, 'AI', 50)
         self.counter = 0
  
     def tail_detection(self, car, dir):
         next_x = car.x
         next_y = car.y
-        if dir == c.NORTH:
+        if dir == d.NORTH:
             next_y = next_y - 1
-        elif dir == c.EAST:
+        elif dir == d.EAST:
                 next_x = next_x + 1
-        elif dir == c.SOUTH:
+        elif dir == d.SOUTH:
             next_y = next_y + 1
-        else:
+        else:                       # dir == WEST
             next_x = next_x - 1
         tail_arr = car.get_tail()
         for i in tail_arr:
@@ -31,10 +34,10 @@ class AIMode(multiplayermode.LokMulti):
         return False
 
     def border_detection(self, car, dir):
-        if (dir == c.NORTH and car.y < 1) \
-        or (dir == c.EAST and car.x > c.BOARD_WIDTH - 2) \
-        or (dir == c.SOUTH and car.y > c.BOARD_HEIGHT - 2) \
-        or (dir == c.WEST and car.x < 1):
+        if (dir == d.NORTH and car.y < 1) \
+        or (dir == d.EAST and car.x > c.BOARD_WIDTH - 2) \
+        or (dir == d.SOUTH and car.y > c.BOARD_HEIGHT - 2) \
+        or (dir == d.WEST and car.x < 1):
             return True
 
     def get_info(self, car):
