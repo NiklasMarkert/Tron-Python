@@ -8,7 +8,7 @@ import ai
 
 
 class Board(QFrame):
-    speed = 40
+    speed = 30
     is_running = False
     is_paused = False
     
@@ -19,6 +19,28 @@ class Board(QFrame):
         self.big_out = big_out
         self.small_out = small_out
 
+    def clear_highscores(self):
+        self.hst.setText('')
+        self.hs1.setText('')
+        self.hs2.setText('')
+        self.hs3.setText('')
+
+    def print_highscore(self, hs):
+        self.hst.setText('Highscores:')
+        top3 = hs.get_scores(3)
+        self.hs1.setText('1. ' + top3[0].name + ' - ' + str(top3[0].score))
+        self.hs2.setText('2. ' + top3[1].name + ' - ' + str(top3[1].score))
+        self.hs3.setText('3. ' + top3[2].name + ' - ' + str(top3[2].score))
+
+    def set_highscore(self, hst, hs1, hs2, hs3):
+        self.hst = hst
+        self.hs1 = hs1
+        self.hs2 = hs2
+        self.hs3 = hs3
+
+    def set_background(self, background):
+        self.background = background
+
     def __init__(self):
         super().__init__()
         self.timer = QBasicTimer()
@@ -28,21 +50,26 @@ class Board(QFrame):
         self.timer.start(self.speed, self)
         self.print_out(self.big_out, '')
         self.print_out(self.small_out, '')
+        self.clear_highscores()
+        self.background.hide()
 
     def end(self):
         self.is_running = False
         self.timer.stop()
+        self.background.show()
         self.print_out(self.small_out, 'Press -Space- to restart or -M- to go to the menu')
 
     def pause(self):
         self.is_paused = True
         self.timer.stop()
+        self.background.show()
         self.print_out(self.small_out, 'Press -M- to go to the menu or any other key to continue')
         self.print_out(self.big_out, '-- Pause --')
 
     def end_pause(self):
         self.is_paused = False
         self.timer.start(self.speed, self)
+        self.background.hide()
         self.print_out(self.big_out, '')
         self.print_out(self.small_out, '')
 
