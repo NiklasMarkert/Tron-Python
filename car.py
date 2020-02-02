@@ -1,5 +1,6 @@
 import expections
 import constants as c
+from constants import Directions as d
 import tail
 
 
@@ -19,6 +20,7 @@ class Car:
         self.tail = tail.TailPart(self.x, self.y, color[1])
         self.name = player_name
         self.ai = False
+        self.lost = False
     
     def move(self, amount):
         """ Lässt das Auto in die momentane Richtung dir bewegen
@@ -26,18 +28,17 @@ class Car:
         """
         old_x = self.x
         old_y = self.y
-        if self.dir == c.NORTH:
+        if self.dir == d.NORTH:
             self.y -= amount
-        elif self.dir == c.EAST:
+        elif self.dir == d.EAST:
             self.x += amount
-        elif self.dir == c.SOUTH:
+        elif self.dir == d.SOUTH:
             self.y += amount
         else:                   # self.dir == WEST  
            self.x -= amount
         self.tail.move(old_x, old_y)
         if self.x > c.BOARD_WIDTH - 1 or self.x < 0 or self.y > c.BOARD_HEIGHT - 1 or self.y < 0:
           raise expections.OutOfMapError
-
         if self.self_destruction:
             tail_arr = self.get_tail()
             for i in tail_arr:
@@ -50,14 +51,14 @@ class Car:
         """
         new_dir = self.next_dir
         if new_dir != self.dir:
-            if new_dir == c.NORTH and self.dir != c.SOUTH:
-                self.dir = c.NORTH
-            elif new_dir == c.EAST and self.dir != c.WEST:
-                self.dir = c.EAST
-            elif new_dir == c.SOUTH and self.dir != c.NORTH:
-                self.dir = c.SOUTH
-            elif new_dir == c.WEST and self.dir != c.EAST:
-                self.dir = c.WEST
+            if new_dir == d.NORTH and self.dir != d.SOUTH:
+                self.dir = d.NORTH
+            elif new_dir == d.EAST and self.dir != d.WEST:
+                self.dir = d.EAST
+            elif new_dir == d.SOUTH and self.dir != d.NORTH:
+                self.dir = d.SOUTH
+            elif new_dir == d.WEST and self.dir != d.EAST:
+                self.dir = d.WEST
 
     def add_tail(self, amount):
         """ Fügt dem Auto einen Schweif hinzu, bzw. verlängert ihn
