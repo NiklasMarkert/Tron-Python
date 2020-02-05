@@ -65,6 +65,15 @@ class LokMulti(board.Board):
             for i in car_list:
                 if i.lost:
                     car_list.remove(i)
+            only_ai = True
+            for i in car_list:
+                if not i.ai:
+                    only_ai = False
+                    break
+            if only_ai:
+                self.print_out(self.big_out, 'AI won!')
+                self.end()
+
 
     def timerEvent(self, e):
         self.extra_length()
