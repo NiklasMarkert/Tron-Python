@@ -17,7 +17,7 @@ class AI(car.Car):
 
     def change_direction(self, map):
         r = random()
-        if map[self.dir] < 0 or r < 0.1:
+        if map[self.dir] < 0 or r < 0.05:
             if self.lastTurns[0] == self.lastTurns[1]:
                 if self.lastTurns[0] == 1 and map[(self.dir + 3) % 4] > 0:
                     self.turn_left()
