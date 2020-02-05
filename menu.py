@@ -12,10 +12,13 @@ class Menu(QMainWindow):
 
     def change_name(self, name):
         new_name = ''
+        letter = False
         for i in name:
             if i != '%':
                 new_name = new_name + i
-        if new_name == '':
+                if i != ' ':
+                    letter = True
+        if new_name == '' or not letter:
             c.PLAYER_NAME = 'Unknown'
         else:
             c.PLAYER_NAME = new_name
@@ -52,9 +55,10 @@ class Menu(QMainWindow):
     def start_options(self):
         """ Öffnet die Einstellungen
         """
-        self.hide()
-        o = options.Options(self)
-        o.show()
+        #self.hide()
+        #o = options.Options(self)
+        #o.show()
+        print('Options')
 
     def show_highscores(self):
         """ Öffnet die Highscoreanzeige
@@ -79,7 +83,8 @@ class Menu(QMainWindow):
         """ Fügt einen Butten hinzu um die Einstellungen zu öffnen
         """
         button = QPushButton('', self)
-        button.move(10, 10)
+        #button.move(10, 10)
+        button.move(c.MENU_WINDOW_WIDTH - 70, 10)
         button.resize(60, 60)
         button.setIcon(QIcon('opt.png'))
         button.setIconSize(QSize(55, 55))
@@ -101,16 +106,28 @@ class Menu(QMainWindow):
         """ Fügt eine Textbox hinzu, um den Spielernamen einzugeben
         """
         text = QLabel('Player Name:', self)
-        text.resize(150, 20)
+        text.resize(190, 30)
         font = text.font()
         font.setBold(True)
-        font.setPointSize(10)
+        font.setPointSize(14)
         text.setFont(font)
-        text.move(c.MENU_WINDOW_WIDTH - 160, 10)
+        #text.move(c.MENU_WINDOW_WIDTH - 200, 10)
+        text.move(10, 10)
+        text.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
         self.textbox = QLineEdit(self)
-        self.textbox.move(c.MENU_WINDOW_WIDTH - 160, 30)
-        self.textbox.resize(150, 25)
+        #self.textbox.move(c.MENU_WINDOW_WIDTH - 200, 42)
+        self.textbox.move(10, 42)
+        self.textbox.resize(190, 30)
+        font = self.textbox.font()
+        font.setPointSize(11)
+        self.textbox.setFont(font)
         self.textbox.setText('Player1')
+
+    def add_background(self):
+        bg = QLabel('', self)
+        bg.resize(c.MENU_WINDOW_WIDTH, c.MENU_WINDOW_HEIGHT)
+        bg.move(0,0)
+        bg.setStyleSheet('QLabel {background-color : white;}')
 
     def __init__(self):
         """ Konstruktor für das Menü
@@ -118,6 +135,7 @@ class Menu(QMainWindow):
         super(Menu, self).__init__()
         self.setWindowTitle('Tron')
         self.setFixedSize(c.MENU_WINDOW_WIDTH, c.MENU_WINDOW_HEIGHT)
+        self.add_background()        
         self.add_text()
         self.add_button(260, 'Local Multiplayer', self.start_loc_multi)
         self.add_button(320, 'V.S. AI', self.start_ai)
