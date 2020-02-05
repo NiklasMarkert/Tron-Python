@@ -16,10 +16,17 @@ class SnakeMode(board.Board):
         self.c1 = self.new_car(c.START_X_1P, c.START_Y_1P, d.NORTH, c.BLUE, True, c.PLAYER_NAME, 20)
         self.obj_arr = [None]
         self.score = 0
+        self.update_score(0)
 
     def draw_object(self, painter, x, y, color):
         color = QColor(color)
         painter.fillRect(x * c.FIELD_SIZE - c.FIELD_SIZE/2, y * c.FIELD_SIZE - c.FIELD_SIZE/2, 2 *  c.FIELD_SIZE, 2 * c.FIELD_SIZE, color)
+
+    def update_score(self, score):
+        if score >= 10:
+            self.score_display.setText(str(score))
+        else:
+            self.score_display.setText('0' + str(score))
 
     def paintEvent(self, e):
         painter = QPainter(self)
@@ -36,11 +43,11 @@ class SnakeMode(board.Board):
             self.print_out(self.big_out, 'Score: ' + str(self.score))
             self.highscore.add_score(self.c1.name, self.score)
             self.print_highscore(self.highscore)
-            #self.background.show()
             self.end()
         except(expections.Collected):
             car.add_tail(10)
             self.score = self.score + 1
+            self.update_score(self.score)
             self.obj_arr[0] = None
 
     def timerEvent(self, e):
