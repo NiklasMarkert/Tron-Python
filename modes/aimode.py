@@ -39,6 +39,29 @@ class AIMode(multiplayermode.LokMulti):
         or (dir == d.SOUTH and car.y > c.BOARD_HEIGHT - 2) \
         or (dir == d.WEST and car.x < 1):
             return True
+        else:
+            return False
+
+    def car_detection(self, car, dir):
+        next_x = car.x
+        next_y = car.y
+        if dir == d.NORTH:
+            next_y = next_y - 1
+        elif dir == d.EAST:
+                next_x = next_x + 1
+        elif dir == d.SOUTH:
+            next_y = next_y + 1
+        else:                       # dir == WEST
+            next_x = next_x - 1
+        for enemy in self.car_list:
+            if enemy is not car:
+                if enemy.x == next_x and enemy.y == next_y and random() < 0.8:
+                    return True
+                tail_arr = enemy.get_tail()
+                for i in tail_arr:
+                    if i.x == next_x and i.y == next_y and random() < 0.8:
+                        return True
+        return False
 
     def get_info(self, car):
         map = [0, 0, 0, 0]
@@ -46,7 +69,7 @@ class AIMode(multiplayermode.LokMulti):
         while(i < 4):
             if(i != car.dir and (i + car.dir == 2 or i + car.dir == 4)):
                 map[i] = -5
-            elif self.tail_detection(car, i) or self.border_detection(car, i):
+            elif self.tail_detection(car, i) or self.border_detection(car, i) or self.car_detection(car, i):
                 map[i] = -1
             else:
                 map[i] = 1
