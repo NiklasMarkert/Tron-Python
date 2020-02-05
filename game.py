@@ -67,6 +67,16 @@ class Game(QMainWindow):
         self.label2.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
         self.label2.move(0, c.BOARD_WINDOW_HEIGHT - 60)
 
+    def add_output3(self):
+        self.label3 = QLabel('', self)
+        self.label3.resize(90, 90)
+        font = self.label3.font()
+        font.setBold(True)
+        font.setPointSize(35)
+        self.label3.setFont(font)
+        self.label3.setAlignment(Qt.AlignRight | Qt.AlignTop)
+        self.label3.move(c.BOARD_WINDOW_WIDTH - 100, 0)
+
     def add_hs_part(self, pos, color):
         label = QLabel('', self)
         label.resize(c.BOARD_WINDOW_WIDTH, 100)
@@ -91,10 +101,17 @@ class Game(QMainWindow):
         self.bg.setStyleSheet('QLabel {background-color : rgba(255, 255, 255, 0.7);}')
         self.bg.move(0, 0)
 
+    def add_background2(self):
+        bg = QLabel('', self)
+        bg.resize(c.BOARD_WINDOW_WIDTH, c.BOARD_WINDOW_HEIGHT)
+        bg.move(0,0)
+        bg.setStyleSheet('QLabel {background-color : black;}')
+
     def __init__(self, parent, mode, hs):
         super(Game, self).__init__(parent)
         self.highscore = hs
         self.multiplayer = False
+        #self.add_background2()
         if mode == 'lok_multi':
             self.board = multiplayermode.LokMulti()
             self.multiplayer = True
@@ -108,7 +125,8 @@ class Game(QMainWindow):
         self.bg.hide()
         self.add_output1()
         self.add_output2()
-        self.board.set_out(self.label1, self.label2)
+        self.add_output3()
+        self.board.set_out(self.label1, self.label2, self.label3)
         self.add_highscore_display()
         self.board.set_highscore(self.hst, self.hs1, self.hs2, self.hs3)
         self.board.start()
