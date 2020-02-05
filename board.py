@@ -15,9 +15,10 @@ class Board(QFrame):
     def print_out(self, output, text):
         output.setText(text)
 
-    def set_out(self, big_out, small_out):
+    def set_out(self, big_out, small_out, score_display):
         self.big_out = big_out
         self.small_out = small_out
+        self.score_display = score_display
 
     def clear_highscores(self):
         self.hst.setText('')
@@ -57,6 +58,7 @@ class Board(QFrame):
         self.is_running = False
         self.timer.stop()
         self.background.show()
+        self.score_display.setText('')
         self.print_out(self.small_out, 'Press -Space- to restart or -M- to go to the menu')
 
     def pause(self):
