@@ -7,6 +7,3 @@ class SelfDestruction(Exception):
 class Collision(Exception):
     pass
 
-class Collected(Exception):
-    pass
-
