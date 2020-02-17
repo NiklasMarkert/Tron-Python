@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow, QLabel, QPushButton, QLineEdit
 from PyQt5.QtCore import Qt
-#import constants as c
 from constants import Modes as m, WindowSize as w, Options as o, Colors as c
 import game
 from highscore import highscore, highscore_window
