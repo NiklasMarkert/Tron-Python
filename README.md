@@ -1,6 +1,23 @@
-Hi, this is the TRON Version designed by Niklas Markert
+# Tron
 
-To start the game, you have to execute the main.py file.
-If you need a guide on how the game works, read the 'How To Play' PDF (only available in German).
+The code implements the Tron game, which is based on the Tron Film. <br> 
+To start the game, just run the main.py with Python.
 
-I wish you good luck and a lot of fun playing the game.
+
+## About the Game
+
+It's a snake-like game where you have to control a bike with a tail. You die, if you drive in the tail of an enemy or in the border of the field. The goal is to be the last driver surviving. <br>
+<br>
+There are different game modes implemented:
+- Tron against AI
+- Tron against a local player
+- A classic Snake game mode
+- A special Power-Up mode
+<br>
+There is a guide on how to play the game as a PDF in the repository, but it is only available in German. <br>
+
+
+## Background Information
+This was my first-ever project in Python and also my first "bigger" project. <br>
+I wrote this for a course at university. The task was to implement the Tron game with the different game modes in Python over the time of a semester. <br>
+The code is unchanged since submitting it for the correction.
