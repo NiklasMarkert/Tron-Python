@@ -1,6 +1,6 @@
-# Tron
+# TRON
 
-The code implements the Tron game, which is based on the Tron Film. <br> 
+The code implements the TRON game, which is based on the TRON Film. <br> 
 To start the game, just run the main.py with Python.
 
 
